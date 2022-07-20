@@ -1,3 +1,5 @@
+import os
+
 import discord
 import time
 from discord.ext import commands
@@ -345,4 +347,4 @@ def print_hi(name):
 
 if __name__ == '__main__':
     print("Discord Bot Started")
-    client.run("OTk3NDc4NzEwMzA1MzYxOTcx.GlR-it.-bVtO3kYdXWz2ISPht6KamswXnFXW8fH_a_46A")
+    client.run(os.environ["BOT_TOKEN"])
