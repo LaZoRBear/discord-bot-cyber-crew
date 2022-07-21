@@ -97,8 +97,9 @@ async def on_ready():
     # send ready confirmation to command line
     print(f'Discord logged in as {client.user.name} - {client.user.id}')
 
-    channel = client.get_channel(997477600505106614)
-    await channel.send("Clone is ready!")
+    for channel in [997477600505106614, 999490394834358335]:
+        ch = client.get_channel(channel)
+        await ch.send("Clone is ready!")
     print("Initialization completed!")
 
 
@@ -188,7 +189,7 @@ async def add_role(ctx, *args):
                 if reaction.emoji == "❌":
                     await reaction.message.clear_reactions()
                 if reaction.emoji == "1️⃣":
-                    role = client.get_guild(997477373580693515).get_role(997550983011913838)
+                    role = client.get_guild(874623755165503549).get_role(996858795831603250)
                     roles = await user.roles
                     if role.name in [x.name for x in roles]:
                         await ctx.send(f"{user.display_name} already posses this role.")
@@ -197,7 +198,7 @@ async def add_role(ctx, *args):
                         await ctx.send(f"I have blessed {user.display_name} with the {role.name}'s role.")
                         return
                 if reaction.emoji in ["2️⃣", "3️⃣"]:
-                    role = client.get_guild(997477373580693515).get_role(997551233399263252)
+                    role = client.get_guild(874623755165503549).get_role(996855832811667496)
                     if role in user.roles:
                         await ctx.send(f"{user.display_name} already posses this role.")
                     else:
@@ -205,7 +206,7 @@ async def add_role(ctx, *args):
                         await ctx.send(f"I have blessed {user.display_name} with the {role.name}'s role.")
                         return
                 if reaction.emoji == "4️⃣":
-                    role = client.get_guild(997477373580693515).get_role(997550627322339328)
+                    role = client.get_guild(874623755165503549).get_role(996857390177734746)
                     if role in user.roles:
                         await ctx.send(f"{user.display_name} already posses this role.")
                     else:
@@ -213,7 +214,7 @@ async def add_role(ctx, *args):
                         await ctx.send(f"I have blessed {user.display_name} with the {role.name}'s role.")
                         return
                 if reaction.emoji == "5️⃣":
-                    role = client.get_guild(997477373580693515).get_role(997550906646200330)
+                    role = client.get_guild(874623755165503549).get_role(996857994417549423)
                     if role in user.roles:
                         await ctx.send(f"{user.display_name} already posses this role.")
                     else:
@@ -226,22 +227,22 @@ async def add_role(ctx, *args):
                 if user.bot:
                     return
                 if reaction.emoji == "1️⃣":
-                    role = client.get_guild(997477373580693515).get_role(997550983011913838)
+                    role = client.get_guild(874623755165503549).get_role(997550983011913838)
                     await user.remove_roles(role)
                     await ctx.send(f"I have deposed {user.display_name} from the {role.name}s.")
                     return
                 if reaction.emoji in ["2️⃣", "3️⃣"]:
-                    role = client.get_guild(997477373580693515).get_role(997551233399263252)
+                    role = client.get_guild(874623755165503549).get_role(996855832811667496)
                     await user.remove_roles(role)
                     await ctx.send(f"I have deposed {user.display_name} from the {role.name}s.")
                     return
                 if reaction.emoji == "4️⃣":
-                    role = client.get_guild(997477373580693515).get_role(997550627322339328)
+                    role = client.get_guild(874623755165503549).get_role(996857390177734746)
                     await user.remove_roles(role)
                     await ctx.send(f"I have deposed {user.display_name} from the {role.name}.")
                     return
                 if reaction.emoji == "5️⃣":
-                    role = client.get_guild(997477373580693515).get_role(997550906646200330)
+                    role = client.get_guild(874623755165503549).get_role(996857994417549423)
                     await user.remove_roles(role)
                     await ctx.send(f"I have deposed {user.display_name} from the {role.name}s.")
                     return
@@ -266,19 +267,19 @@ async def add_role(ctx, *args):
 
 
 # remove_role command
-@client.command(name="remove-role", aliases=["rr", "remove"])
-@commands.cooldown(5, 60, commands.BucketType.member)
-async def remove_role(ctx, *args):
-    if args[0].lower() == "g08":
-        await ctx.message.author.remove_roles(client.get_guild(997477373580693515).get_role(997550983011913838))
-    if args[0].lower() == "g09":
-        await ctx.message.author.remove_roles(client.get_guild(997477373580693515).get_role(997550983011913838))
-    if args[0].lower() == "g10":
-        await ctx.message.author.remove_roles(client.get_guild(997477373580693515).get_role(997551233399263252))
-    if args[0].lower() == "g11":
-        await ctx.message.author.remove_roles(client.get_guild(997477373580693515).get_role(997550627322339328))
-    if args[0].lower() == "g13":
-        await ctx.message.author.remove_roles(client.get_guild(997477373580693515).get_role(997550906646200330))
+# @client.command(name="remove-role", aliases=["rr", "remove"])
+# @commands.cooldown(5, 60, commands.BucketType.member)
+# async def remove_role(ctx, *args):
+#     if args[0].lower() == "g08":
+#         await ctx.message.author.remove_roles(client.get_guild(874623755165503549).get_role(997550983011913838))
+#     if args[0].lower() == "g09":
+#         await ctx.message.author.remove_roles(client.get_guild(874623755165503549).get_role(997550983011913838))
+#     if args[0].lower() == "g10":
+#         await ctx.message.author.remove_roles(client.get_guild(874623755165503549).get_role(997551233399263252))
+#     if args[0].lower() == "g11":
+#         await ctx.message.author.remove_roles(client.get_guild(874623755165503549).get_role(997550627322339328))
+#     if args[0].lower() == "g13":
+#         await ctx.message.author.remove_roles(client.get_guild(874623755165503549).get_role(997550906646200330))
     # if args[0] in ["can-d", "cyber-cycle", "clone", "card"]:
     #     role_list = client.get_guild(997477373580693515).roles
     #     print(role_list)
