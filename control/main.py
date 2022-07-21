@@ -13,7 +13,7 @@ client_intents = discord.Intents(guilds=True, members=True, bans=False, emojis=T
                                  invites=False, voice_states=False, presences=False, messages=True,
                                  guild_messages=True,
                                  dm_messages=False, reactions=True, guild_reactions=True, dm_reactions=False,
-                                 typing=False, guild_typing=False, dm_typing=False)
+                                 typing=False, guild_typing=False, dm_typing=False, guild_roles=True)
 
 # intitialize discord client
 client = commands.Bot(command_prefix=["Dear majestic Cyber Cow, ", "DMCC, "], case_insensitive=True, intents=client_intents)
