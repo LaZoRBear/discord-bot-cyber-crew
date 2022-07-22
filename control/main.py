@@ -70,7 +70,7 @@ async def generate_embed(color, title, description, attachment=None, thumbnail=N
 # client event triggers when a command hits an error
 @client.event
 async def on_command_error(ctx, error):
-    print(ctx.author + " is spamming commands")
+    print(ctx.author.display_name + " is spamming commands")
     if isinstance(error, commands.CommandOnCooldown):
         # build error embed
         embed_title = 'Command Cooldown'
@@ -110,7 +110,7 @@ async def on_ready():
 @client.command(name="help", aliases=["sos", "help me", "how"])
 @commands.cooldown(1, 60, commands.BucketType.member)
 async def help(ctx):
-    print(ctx.author + " called the help command")
+    print(ctx.author.display_name + " called the help command")
     await ctx.trigger_typing()
     embed_title = "Cyber Cow Tech Tips"
     embed_description = "Call the bot with one of these prompt: 'Dear majestic Cyber Cow, ', 'DMCC, '\n" \
@@ -127,7 +127,7 @@ async def help(ctx):
 @client.command(name="check my roles", aliases=["cr", "roles", "check"])
 @commands.cooldown(2, 60, commands.BucketType.member)
 async def check_roles(ctx):
-    print(ctx.author + " called the check_roles command")
+    print(ctx.author.display_name + " called the check_roles command")
     await ctx.trigger_typing()
     role_list = ctx.message.author.roles
     if len(role_list) <= 1:
@@ -147,18 +147,18 @@ async def check_roles(ctx):
 @client.command(name="manage my roles", aliases=["mr", "manage"])
 @commands.cooldown(5, 60, commands.BucketType.member)
 async def manage_roles(ctx, *args):
-    print(ctx.author + " called the manage_roles command")
+    print(ctx.author.display_name + " called the manage_roles command")
 
     def check(r, u):
         print("CHECKING")
         print(r, u)
-        return u.id == ctx.author.id and r.message.channel.id == ctx.channel.id and str(r.emoji) in ["✅",
+        return u.id == ctx.author.display_name.id and r.message.channel.id == ctx.channel.id and str(r.emoji) in ["✅",
                                                                                                      "❌"]
 
     def check2(r, u):
         print("CHECKING")
         print(r, u)
-        return u.id == ctx.author.id and r.message.channel.id == ctx.channel.id and str(r.emoji) in ["1️⃣",
+        return u.id == ctx.author.display_name.id and r.message.channel.id == ctx.channel.id and str(r.emoji) in ["1️⃣",
                                                                                                      "2️⃣",
                                                                                                      "3️⃣",
                                                                                                      "4️⃣",
@@ -169,14 +169,14 @@ async def manage_roles(ctx, *args):
     await og_message.add_reaction("✅")
     await og_message.add_reaction("❌")
     try:
-        print("Waiting for " + ctx.author + " to react")
+        print("Waiting for " + ctx.author.display_name + " to react")
         reaction, user = await client.wait_for("reaction_add", check=check, timeout=30)
         if reaction.emoji == "❌":
-            print(ctx.author + " canceled the manage_roles command")
+            print(ctx.author.display_name + " canceled the manage_roles command")
             await ctx.send("You dared disturb the Cyber Cow for THIS!!!")
             await reaction.message.clear_reactions()
         if ctx.message.author in await reaction.users().flatten():
-            print(ctx.author + " accepted to manage his roles")
+            print(ctx.author.display_name + " accepted to manage his roles")
             role_list = ["Chrome Cannon ID:G08 (CANNON Enthusiast)",
                          "Cyber Clone ID:G09 (Gear and Mayhem Subscriber)",
                          "Clone Card ID:G10 (Gear and Mayhem Subscriber)",
@@ -200,61 +200,61 @@ async def manage_roles(ctx, *args):
             try:
                 r, u = await client.wait_for("reaction_add", check=check2, timeout=30)
                 if r.emoji == "❌":
-                    print(ctx.author + " canceled the manage_roles command")
+                    print(ctx.author.display_name + " canceled the manage_roles command")
                     await reaction.message.clear_reactions()
             except asyncio.TimeoutError:
-                print(ctx.author + " didn't react in time")
+                print(ctx.author.display_name + " didn't react in time")
                 await ctx.send("I am going back to sleep now.")
                 await reaction.message.clear_reactions()
                 return
 
             @client.event
             async def on_reaction_add(reaction, user):
-                print(ctx.author + " added this reaction : " + reaction.emoji)
+                print(ctx.author.display_name + " added this reaction : " + reaction.emoji)
                 if user.bot:
                     return
                 if reaction.emoji == "❌":
-                    print(ctx.author + " canceled the manage_roles command")
+                    print(ctx.author.display_name + " canceled the manage_roles command")
                     await reaction.message.clear_reactions()
                 if reaction.emoji == "1️⃣":
                     role = client.get_guild(874623755165503549).get_role(996858795831603250)
                     roles = user.roles
                     await asyncio.sleep(500)
                     if role.name in [x.name for x in roles]:
-                        print(ctx.author + " already posses this role: " + role.name)
+                        print(ctx.author.display_name + " already posses this role: " + role.name)
                         await ctx.send(f"{user.display_name} already posses this role.")
                     else:
-                        print(ctx.author + " added this role: " + role.name)
+                        print(ctx.author.display_name + " added this role: " + role.name)
                         await user.add_roles(role)
                         await ctx.send(f"I have blessed {user.display_name} with the {role.name}'s role.")
                         return
                 if reaction.emoji in ["2️⃣", "3️⃣"]:
                     role = client.get_guild(874623755165503549).get_role(996855832811667496)
                     if role in user.roles:
-                        print(ctx.author + " already posses this role: " + role.name)
+                        print(ctx.author.display_name + " already posses this role: " + role.name)
                         await ctx.send(f"{user.display_name} already posses this role.")
                     else:
-                        print(ctx.author + " added this role: " + role.name)
+                        print(ctx.author.display_name + " added this role: " + role.name)
                         await user.add_roles(role)
                         await ctx.send(f"I have blessed {user.display_name} with the {role.name}'s role.")
                         return
                 if reaction.emoji == "4️⃣":
                     role = client.get_guild(874623755165503549).get_role(996857390177734746)
                     if role in user.roles:
-                        print(ctx.author + " already posses this role: " + role.name)
+                        print(ctx.author.display_name + " already posses this role: " + role.name)
                         await ctx.send(f"{user.display_name} already posses this role.")
                     else:
-                        print(ctx.author + " added this role: " + role.name)
+                        print(ctx.author.display_name + " added this role: " + role.name)
                         await user.add_roles(role)
                         await ctx.send(f"I have blessed {user.display_name} with the {role.name}'s role.")
                         return
                 if reaction.emoji == "5️⃣":
                     role = client.get_guild(874623755165503549).get_role(996857994417549423)
                     if role in user.roles:
-                        print(ctx.author + " already posses this role: " + role.name)
+                        print(ctx.author.display_name + " already posses this role: " + role.name)
                         await ctx.send(f"{user.display_name} already posses this role.")
                     else:
-                        print(ctx.author + " added this role: " + role.name)
+                        print(ctx.author.display_name + " added this role: " + role.name)
                         await user.add_roles(role)
                         await ctx.send(f"I have blessed {user.display_name} with the {role.name}'s role.")
                         return
@@ -265,31 +265,31 @@ async def manage_roles(ctx, *args):
                     return
                 if reaction.emoji == "1️⃣":
                     role = client.get_guild(874623755165503549).get_role(997550983011913838)
-                    print(ctx.author + " removed this role: " + role.name)
+                    print(ctx.author.display_name + " removed this role: " + role.name)
                     await user.remove_roles(role)
                     await ctx.send(f"I have deposed {user.display_name} from the {role.name}s.")
                     return
                 if reaction.emoji in ["2️⃣", "3️⃣"]:
                     role = client.get_guild(874623755165503549).get_role(996855832811667496)
-                    print(ctx.author + " removed this role: " + role.name)
+                    print(ctx.author.display_name + " removed this role: " + role.name)
                     await user.remove_roles(role)
                     await ctx.send(f"I have deposed {user.display_name} from the {role.name}s.")
                     return
                 if reaction.emoji == "4️⃣":
                     role = client.get_guild(874623755165503549).get_role(996857390177734746)
-                    print(ctx.author + " removed this role: " + role.name)
+                    print(ctx.author.display_name + " removed this role: " + role.name)
                     await user.remove_roles(role)
                     await ctx.send(f"I have deposed {user.display_name} from the {role.name}.")
                     return
                 if reaction.emoji == "5️⃣":
                     role = client.get_guild(874623755165503549).get_role(996857994417549423)
-                    print(ctx.author + " removed this role: " + role.name)
+                    print(ctx.author.display_name + " removed this role: " + role.name)
                     await user.remove_roles(role)
                     await ctx.send(f"I have deposed {user.display_name} from the {role.name}s.")
                     return
 
     except asyncio.TimeoutError:
-        print(ctx.author + " didn't react in time")
+        print(ctx.author.display_name + " didn't react in time")
         await ctx.send("I am going back to sleep now.")
 
     # if args[0].lower() == "g08":
@@ -331,7 +331,7 @@ async def manage_roles(ctx, *args):
 # ping command
 @client.command(name='ping')
 async def ping(ctx):
-    print(ctx.author + " pinged")
+    print(ctx.author.display_name + " pinged")
     await ctx.trigger_typing()
     # build response embed
     embed_title = 'Pong!'
