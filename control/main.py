@@ -13,7 +13,7 @@ client_intents = discord.Intents(guilds=True, members=True, bans=False, emojis=T
                                  invites=False, voice_states=False, presences=False, messages=True,
                                  guild_messages=True,
                                  dm_messages=False, reactions=True, guild_reactions=True, dm_reactions=False,
-                                 typing=False, guild_typing=False, dm_typing=False, guild_roles=True)
+                                 typing=False, guild_typing=False, dm_typing=False)
 
 # intitialize discord client
 client = commands.Bot(command_prefix=["Dear majestic Cyber Cow, ", "DMCC, "], case_insensitive=True, intents=client_intents)
@@ -184,13 +184,15 @@ async def add_role(ctx, *args):
 
             @client.event
             async def on_reaction_add(reaction, user):
+                await ctx.trigger_typing()
                 if user.bot:
                     return
                 if reaction.emoji == "❌":
                     await reaction.message.clear_reactions()
                 if reaction.emoji == "1️⃣":
                     role = client.get_guild(874623755165503549).get_role(996858795831603250)
-                    roles = await user.roles
+                    roles = user.roles
+                    await asyncio.sleep(500)
                     if role.name in [x.name for x in roles]:
                         await ctx.send(f"{user.display_name} already posses this role.")
                     else:
