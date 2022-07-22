@@ -70,7 +70,7 @@ async def generate_embed(color, title, description, attachment=None, thumbnail=N
 # client event triggers when a command hits an error
 @client.event
 async def on_command_error(ctx, error):
-    print(ctx.message.user.name + " is spamming commands")
+    print(ctx.author + " is spamming commands")
     if isinstance(error, commands.CommandOnCooldown):
         # build error embed
         embed_title = 'Command Cooldown'
