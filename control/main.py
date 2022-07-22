@@ -19,7 +19,7 @@ client_intents = discord.Intents(guilds=True, members=True, bans=False, emojis=T
 client = commands.Bot(command_prefix=["Dear majestic Cyber Cow, ", "DMCC, "], case_insensitive=True, intents=client_intents)
 
 
-# client.remove_command('help')
+client.remove_command('help')
 
 
 # generate a discord embed with an optional attached image
@@ -101,6 +101,22 @@ async def on_ready():
         ch = client.get_channel(channel)
         await ch.send("Clone is ready!")
     print("Initialization completed!")
+
+
+#Help menu
+@client.command(name="help", aliases=["sos", "help me", "how", "I can't even"])
+@commands.cooldown(1, 60, commands.BucketType.member)
+async def help(ctx):
+    await ctx.trigger_typing()
+    embed_title = "Cyber Cow Tech Tips"
+    embed_description = "Call the bot with one of these prompt: 'Dear majestic Cyber Cow, ', 'DMCC, '\n" \
+                        "Then call one of those commands:\n" \
+                        " 1️⃣ Help menu: help, sos, help me, how, I can't even\n" \
+                        " 2️⃣ Checking current roles: check my roles, cr, roles, check\n" \
+                        " 3️⃣ Managing your roles: manage my roles, mr, manage\n\n" \
+                        "i.e.: Dear majesctic Cyber Cow, I can't even"
+    embed = await generate_embed("blue", embed_title, embed_description)
+    await ctx.send(embed=embed)
 
 
 # check_roles command
