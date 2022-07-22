@@ -184,7 +184,6 @@ async def add_role(ctx, *args):
 
             @client.event
             async def on_reaction_add(reaction, user):
-                await ctx.trigger_typing()
                 if user.bot:
                     return
                 if reaction.emoji == "❌":
