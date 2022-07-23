@@ -152,13 +152,13 @@ async def manage_roles(ctx, *args):
     def check(r, u):
         print("CHECKING")
         print(r, u)
-        return u.id == ctx.author.display_name.id and r.message.channel.id == ctx.channel.id and str(r.emoji) in ["✅",
+        return u.id == ctx.author.id and r.message.channel.id == ctx.channel.id and str(r.emoji) in ["✅",
                                                                                                      "❌"]
 
     def check2(r, u):
         print("CHECKING")
         print(r, u)
-        return u.id == ctx.author.display_name.id and r.message.channel.id == ctx.channel.id and str(r.emoji) in ["1️⃣",
+        return u.id == ctx.author.id and r.message.channel.id == ctx.channel.id and str(r.emoji) in ["1️⃣",
                                                                                                      "2️⃣",
                                                                                                      "3️⃣",
                                                                                                      "4️⃣",
