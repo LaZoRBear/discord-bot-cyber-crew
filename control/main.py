@@ -218,9 +218,7 @@ async def manage_roles(ctx, *args):
                     await reaction.message.clear_reactions()
                 if reaction.emoji == "1️⃣":
                     role = client.get_guild(874623755165503549).get_role(996858795831603250)
-                    roles = user.roles
-                    await asyncio.sleep(500)
-                    if role.name in [x.name for x in roles]:
+                    if role.name in user.roles:
                         print(ctx.author.display_name + " already posses this role: " + role.name)
                         await ctx.send(f"{user.display_name} already posses this role.")
                     else:
@@ -264,7 +262,7 @@ async def manage_roles(ctx, *args):
                 if user.bot:
                     return
                 if reaction.emoji == "1️⃣":
-                    role = client.get_guild(874623755165503549).get_role(997550983011913838)
+                    role = client.get_guild(874623755165503549).get_role(996858795831603250)
                     print(ctx.author.display_name + " removed this role: " + role.name)
                     await user.remove_roles(role)
                     await ctx.send(f"I have deposed {user.display_name} from the {role.name}s.")
